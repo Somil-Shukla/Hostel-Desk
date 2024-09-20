@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://newuser:newpassword@db:5432/hostel
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: newuser
+      POSTGRES_PASSWORD: newpassword
+      POSTGRES_DB: hostel
+    ports:
+      - "5432:5432"
